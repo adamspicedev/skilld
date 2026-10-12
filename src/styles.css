@@ -216,7 +216,7 @@
       @apply flex w-full flex-col items-center;
     }
 
-    & > main > .frame {
+    & > main.frame {
       @apply relative w-full overflow-hidden bg-base py-16 md:py-24;
     }
   }
@@ -553,10 +553,20 @@
     }
 
     .copy {
-      @apply p-1 text-text-muted opacity-0 transition-opacity hover:text-white;
+      @apply flex shrink-0 items-center gap-1.5 p-1 text-text-muted opacity-100 transition-opacity hover:text-white focus-visible:opacity-100;
+
+      @media (hover: hover) and (pointer: fine) {
+        &:not(:focus-visible):not([data-copied="true"]) {
+          @apply opacity-0;
+        }
+      }
+
+      &[data-copied="true"] {
+        @apply text-accent-primary opacity-100;
+      }
     }
 
-    &:hover .copy {
+    &:hover .copy:not(:focus-visible):not([data-copied="true"]) {
       @apply opacity-100;
     }
 
